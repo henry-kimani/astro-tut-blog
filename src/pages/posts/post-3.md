@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: My third Blog Post
 author: Henry Kimani
 description: "I had some challanges, but asking the community really helped!"

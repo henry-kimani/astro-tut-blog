@@ -1,9 +1,5 @@
 ---
-import '../styles/globals.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-
-const pageTitle = "About Me";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const identity = {
   firstName: "Hart",
@@ -21,64 +17,49 @@ const goal = 3;
 const skillColor = "navy";
 const fontWeight = "bold";
 const textCase = "uppercase";
+
+const pageTitle = "About Me";
 ---
 
-<html>
-  <head>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator}/>
-    <title>{pageTitle}</title>
-    <style define:vars={{skillColor, fontWeight, textCase}}>
-    h1 {
-      color: purple;
-      font-size: 4rem;
+<style is:global define:vars={{skillColor, fontWeight, textCase}}>
+h1 {
+  color: purple;
+  font-size: 4rem;
+}
+.skill {
+  color: var(--skillColor);
+  font-weight: var(--fontWeight); 
+  text-transform: var(--textCase);
+}
+</style>
+
+<BaseLayout pageTitle={pageTitle}>
+  <p>
+    I am working through astro's introductory tutorial. This is the second 
+    page on my website and its the first one I build myself.
+  </p>
+  <p>
+    This site will update as I complete more of the tutorial, so keep checking
+    back and see how my journey is going!
+  </p>
+
+  <p>Here are some few facts about me:</p>
+  <ul>
+    <li>My name is {identity.firstName}.</li>
+    <li>I live in {identity.country} and work as a {identity.occupation}.</li>
+    {identity.hobbies.length >= 2 && 
+    <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
     }
-    .skill {
-      color: var(--skillColor);
-      font-weight: var(--fontWeight); 
-      text-transform: var(--textCase);
-    }
-    </style>
-  </head>
-  <body>
-    <Header />
+  </ul>
 
-    <h1>{pageTitle}</h1>
-    <p>
-      I am working through astro's introductory tutorial. This is the second 
-      page on my website and its the first one I build myself.
-    </p>
-    <p>
-      This site will update as I complete more of the tutorial, so keep checking
-      back and see how my journey is going!
-    </p>
+  <p>My Skills are:</p>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
 
-    <p>Here are some few facts about me:</p>
-    <ul>
-      <li>My name is {identity.firstName}.</li>
-      <li>I live in {identity.country} and work as a {identity.occupation}.</li>
-      {identity.hobbies.length >= 2 && 
-        <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
-      }
-    </ul>
+  {happy && <p>I am Happy to be Learning Astro.</p>}
+  {finished && <p>I finished this tutorial!</p>}
+  {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days</p> }
+</BaseLayout>
 
-    <p>My Skills are:</p>
-    <ul>
-      {skills.map((skill) => <li class="skill">{skill}</li>)}
-    </ul>
 
-    {happy && <p>I am Happy to be Learning Astro.</p>}
-    {finished && <p>I finished this tutorial!</p>}
-    {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days</p> }
-
-    <Footer />
-    <script>
-      import "../scripts/menu.js";
-        import "../scripts/menu.js";
-        import "../scripts/menu.js";
-        import "../scripts/menu.js";
-    </script>
-
-  </body>
-</html>
